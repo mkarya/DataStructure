@@ -5,6 +5,7 @@ using namespace std;
 
 //string * tree_item[10] = {"mukesh","syama","rama","hanuman","siva","mansal", "ramjidas","ravi", "kabir","todo"};
 int int_tree_item[10] = {10,2,3,11,-3,-9,20,21,20,12};
+int int_tree_item1[10] = {11,4,100,200,-30,-19,201,211,202,123};
 
 void check_find_function(Tree *);
 void check_tree2array_function(Tree *);
@@ -21,19 +22,20 @@ main ()
 		btree->AddNodeToTree(int_tree_item[counter]);
 	}
 
+	for(unsigned short int counter=0;counter<10;counter++) {
+		btree->AddNodeToTree(int_tree_item1[counter]);
+	}
+
 	
 	check_find_function(btree);
 	btree->RightTraverse();
 	cout << btree->treeSize() << "\n";
-	cout << "level of element 21 is " << btree->getLevel(btree->getRoot(), 21, 0) << "\n";
-	Node * p = btree->findNode(20,btree->getRoot());
-	if (p != NULL ) cout << "found node " << p->data << "\n";
-	btree->deleteNode(11);
-	btree->RightTraverse();
-	cout << "tree size after deletion " << btree->treeSize() << "\n";
-	check_tree2array_function(btree);
-	
-	
+	cout << "Tree Hight :" << btree->TreeHight( btree->getRoot()) << "\n";
+
+	btree->WreadthFirst();
+
+	cout << "Tree balace factor :" << btree->IsTreeBalanced() << "\n";
+
 }
 
 void check_find_function (Tree * tree) {

@@ -28,6 +28,12 @@ class Tree {
 		inline void RightTraverse() { this->preOrderTraversal(root) ;}
 		inline int getNumberOdNode() { return number_of_node; }
 		inline Node * getRoot() const { return root ;} 
+		unsigned int LeftTreeHight(Node *);
+		unsigned int RightTreeHight(Node *);
+		unsigned int TreeHight(Node *);
+		void WreadthFirst();
+		void WreadthFirstPrint(Node *, int);
+		int IsTreeBalanced();
 
 	private:
 		Node *root;

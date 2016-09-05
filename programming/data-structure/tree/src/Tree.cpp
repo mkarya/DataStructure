@@ -156,37 +156,71 @@ void Tree::deleteNode(const int data) {
 
 	delete p;
 }
-	
 
-/*
-void Tree<DType>::RightTraverse() {
-	if (_ptr != NULL ) {
-		traverse_tree(_ptr->right_ptr);
-		traverse_tree(_ptr->left_ptr);
-	 	cout << _ptr->data << "\n";
+unsigned int Tree::LeftTreeHight(Node * tnode) {
+	if (tnode == NULL) return 0;
+	else {
+		return LeftTreeHight(tnode->left_ptr) + 1;
 	}
-	return;
 }
 
-void Tree <DType>::find_node(Node <DType> *start_ptr, DType data, Node <DType> ** containing_node) {
-	if ( start_ptr == NULL ) { return; } 
-	else if (start_ptr->data == data) { *containing_node = start_ptr; return; }
-	else { find_node(start_ptr->left_ptr, data, &(*containing_node));
-		find_node(start_ptr->right_ptr,data, &(*containing_node));
+unsigned int Tree::RightTreeHight(Node * tnode) {
+	if (tnode == NULL) return 0;
+	else {
+		return RightTreeHight(tnode->right_ptr) + 1;
+	}
+}
+
+int Tree::IsTreeBalanced() {
+	unsigned int llength = LeftTreeHight(root);
+	unsigned int rlength = RightTreeHight(root);
+	int balDiff = rlength -  llength;
+
+	if ( balDiff == 1 ) {
+		cout << "Tree is balanced \n";
+		return 0;
+	}
+	else 
+	{
+		return balDiff;
+	}
+} 
+		
+
+
+unsigned int Tree::TreeHight(Node *tnode) {
+	unsigned int llength = LeftTreeHight(tnode);
+	unsigned int rlength = RightTreeHight(tnode);
+
+	if (llength >= rlength)
+ 		return  llength;
+	else return rlength;
+}
+
+void Tree::WreadthFirstPrint(Node * tnode, int length) {
+	if (length == 1) {
+		if (tnode != NULL) cout << tnode->data << "    ";
 		return;
 	}
-}	 
-
-void delete_node_from_tree (INT_NODE * root, int data){
-	INT_NODE * containing_node = NULL;
-        find_node(root, data, &containing_node);
-	if ( containing_node != NULL ) {
-		if (containing_node != root ) {
-			add_intnode_to_tree(containing_node->right_ptr, &root);
-			add_intnode_to_tree(containing_node->left_ptr, &root);
-			free(containing_node);
-		}
+	else {
+		if ( tnode->left_ptr != NULL ) 
+			WreadthFirstPrint( tnode->left_ptr, length - 1); 
+		if ( tnode->right_ptr !=NULL ) 
+			WreadthFirstPrint( tnode->right_ptr, length - 1); 
 	}
-	return;
 }
-*/ 
+
+void Tree::WreadthFirst() {
+	Node * btree = this->getRoot();
+	
+	unsigned int length = this->TreeHight(btree);
+
+	for (unsigned int counter = 1; counter <= length; counter ++) {
+		cout << "level : " << counter  << "   ";
+		WreadthFirstPrint( btree, counter);
+		cout << "\n";
+	}
+}
+
+	
+	
