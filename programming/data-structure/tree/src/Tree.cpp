@@ -1,5 +1,6 @@
 #include <iostream>
 #include "tree.h"
+#include <stdlib.h>
 using namespace std;
 
 Node::Node() {
@@ -106,11 +107,11 @@ void Tree::preOrderTraversal(Node  * _ptr) {
 	return;
 }
 
-void Tree::Tree2Array(Node *_ptr, int kk[]) {
+void Tree::Tree2Array(Node *_ptr, Node * kk[]) {
 	static unsigned int counter = 0; 
 	if (_ptr != NULL ) {
 		if (_ptr->left_ptr != NULL )  this->Tree2Array(_ptr->left_ptr, kk);
-	 	kk[counter++] = _ptr->data;
+	 	kk[counter++] = _ptr;
 		if (_ptr->right_ptr != NULL ) this->Tree2Array(_ptr->right_ptr, kk);
 	}
 	return;
@@ -171,19 +172,16 @@ unsigned int Tree::RightTreeHight(Node * tnode) {
 	}
 }
 
-int Tree::IsTreeBalanced() {
-	unsigned int llength = LeftTreeHight(root);
-	unsigned int rlength = RightTreeHight(root);
+bool Tree::IsTreeBalanced(Node * tnode) {
+	if (tnode == NULL) return 1;
+	unsigned int llength = LeftTreeHight(tnode);
+	unsigned int rlength = RightTreeHight(tnode);
 	int balDiff = rlength -  llength;
 
-	if ( balDiff == 1 ) {
-		cout << "Tree is balanced \n";
-		return 0;
+	if ( abs(balDiff) <= 1 && IsTreeBalanced(tnode->left_ptr) && IsTreeBalanced(tnode->right_ptr)) {
+		return 1; 
 	}
-	else 
-	{
-		return balDiff;
-	}
+	return 0;
 } 
 		
 
@@ -222,5 +220,42 @@ void Tree::WreadthFirst() {
 	}
 }
 
+void Tree::PerformTreeBalance() {
+	int size = treeSize();
+	Node * kk[size];
+
+	Tree2Array(root, kk);
+	
+	for (int counter = 0 ; counter <= size ; counter++) {
+		kk[counter]->left_ptr = NULL;
+		kk[counter]->right_ptr = NULL;
+	}
+
+	root = NULL;
+
+	TreeBalance(0,size-1,kk);
+	return;
+}
+	
+void Tree::AddNodeToTree(Node **rnode, Node * bnode) {
+	if (*rnode == NULL) *rnode = bnode;
+	else if ((*rnode)->data > bnode->data) {
+		AddNodeToTree(&((*rnode)->left_ptr), bnode);
+	}
+	else  {
+		AddNodeToTree(&((*rnode)->right_ptr), bnode);
+
+	}
+}
+	 
+void Tree::TreeBalance(int first, int last, Node * kk[]) {
+	if (first > last) return;
+	else {
+		int temp = (int) (first + last)/2; 
+		AddNodeToTree(&root,kk[temp]);
+		TreeBalance(first,temp - 1, kk);
+		TreeBalance(temp+1, last,kk);
+	}
+}
 	
 	

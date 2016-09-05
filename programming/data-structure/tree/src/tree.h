@@ -17,12 +17,13 @@ class Tree {
 	public:
 		Tree();
 		void AddNodeToTree(int);
+		void AddNodeToTree(Node **, Node *);
 		inline int treeSize() { return this->ITreeSize(root); }
 		void PreOrder();
 		int getLevel(const Node * leaf, const int& data, unsigned short level); 
 		void deleteNode (const int data);
 		Node * findNode(const int data, Node *);
-		void Tree2Array (Node *, int kk[]);
+		void Tree2Array (Node *, Node * kk[]);
 		//void Post();
 	//	void InOrder();
 		inline void RightTraverse() { this->preOrderTraversal(root) ;}
@@ -33,7 +34,9 @@ class Tree {
 		unsigned int TreeHight(Node *);
 		void WreadthFirst();
 		void WreadthFirstPrint(Node *, int);
-		int IsTreeBalanced();
+		bool IsTreeBalanced(Node *);
+		void PerformTreeBalance(void);
+		void TreeBalance(int, int, Node * kk[]);
 
 	private:
 		Node *root;
