@@ -10,7 +10,7 @@ int int_tree_item1[10] = {11,4,100,200,-30,-19,201,211,202,123};
 void check_find_function(Tree *);
 //void check_tree2array_function(Tree *);
 
-main ()
+int main ()
 {
 	Tree  * btree = new Tree();
 	Node kk(10),ll;
@@ -30,13 +30,18 @@ main ()
 	check_find_function(btree);
 	btree->RightTraverse();
 	cout << btree->treeSize() << "\n";
-	cout << "Tree Hight :" << btree->TreeHight( btree->getRoot()) << "\n";
+	cout << "Tree Hight :" << btree->TreeHight(btree->getRoot()) << "\n";
+
+	//btree->TreeMirror();
+	//btree->RightTraverse();
+
 
 	//btree->WreadthFirst();
 
-	//cout << "Tree balace factor :" << btree->IsTreeBalanced(btree->getRoot()) << "\n";
-	btree->PerformTreeBalance();
 	cout << "Tree balace factor :" << btree->IsTreeBalanced(btree->getRoot()) << "\n";
+	btree->PerformTreeBalance();
+	//cout << "Tree balace factor :" << btree->IsTreeBalanced(btree->getRoot()) << "\n";
+	return 0;
 }
 
 void check_find_function (Tree * tree) {

@@ -17,7 +17,6 @@ class Tree {
 	public:
 		Tree();
 		void AddNodeToTree(int);
-		void AddNodeToTree(Node **, Node *);
 		inline int treeSize() { return this->ITreeSize(root); }
 		void PreOrder();
 		int getLevel(const Node * leaf, const int& data, unsigned short level); 
@@ -37,10 +36,12 @@ class Tree {
 		bool IsTreeBalanced(Node *);
 		void PerformTreeBalance(void);
 		void TreeBalance(int, int, Node * kk[]);
+		void TreeMirror();
 
 	private:
 		Node *root;
 		void preOrderTraversal(Node * _ptr);
+		void TreeMirrorI(Node *);
 		int ITreeSize(Node *);
 		void addNode (Node * _ptr, Node * _leafNode );
 		unsigned int number_of_node;

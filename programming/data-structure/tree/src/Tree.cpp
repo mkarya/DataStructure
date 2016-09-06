@@ -51,22 +51,6 @@ void Tree::AddNodeToTree(int data) {
 	number_of_node++;
 }
 
-/*
-void Tree::addNode (Node * _ptr) {
-	if (*_tptr != NULL ) {
-		kk = strcmp ((*_tptr)->data, _ptr->data);
-		if (kk > 0) {add_node_to_tree (_ptr, &(*_tptr)->right_ptr);}
-		else {add_node_to_tree (_ptr, &(*_tptr)->left_ptr);}
-	}
-	else {
-		*_tptr = _ptr;
-		printf ("adding node to tree %s\n", (*_tptr)->data);
-	}
-
-	return;
-}
-*/
-
 Node * Tree::findNode(const int data, Node * p) {
 	if (p == NULL) return NULL;
 	else if (p->data == data ) return p;
@@ -109,7 +93,7 @@ void Tree::preOrderTraversal(Node  * _ptr) {
 
 void Tree::Tree2Array(Node *_ptr, Node * kk[]) {
 	static unsigned int counter = 0; 
-	if (_ptr != NULL ) {
+	if (counter < 20 ) {
 		if (_ptr->left_ptr != NULL )  this->Tree2Array(_ptr->left_ptr, kk);
 	 	kk[counter++] = _ptr;
 		if (_ptr->right_ptr != NULL ) this->Tree2Array(_ptr->right_ptr, kk);
@@ -231,31 +215,48 @@ void Tree::PerformTreeBalance() {
 		kk[counter]->right_ptr = NULL;
 	}
 
-	root = NULL;
+	int temp = (int) size/2; 
+	root = kk[temp];
 
-	TreeBalance(0,size-1,kk);
+	TreeBalance(0,temp-1,kk);
+	TreeBalance(temp+1,size,kk);
 	return;
 }
 	
-void Tree::AddNodeToTree(Node **rnode, Node * bnode) {
-	if (*rnode == NULL) *rnode = bnode;
-	else if ((*rnode)->data > bnode->data) {
-		AddNodeToTree(&((*rnode)->left_ptr), bnode);
-	}
-	else  {
-		AddNodeToTree(&((*rnode)->right_ptr), bnode);
-
-	}
-}
-	 
 void Tree::TreeBalance(int first, int last, Node * kk[]) {
-	if (first > last) return;
+	if (first >= last) return;
 	else {
 		int temp = (int) (first + last)/2; 
-		AddNodeToTree(&root,kk[temp]);
-		TreeBalance(first,temp - 1, kk);
+		addNode(kk[temp],root);
+		cout << "addNode done \n";
+		TreeBalance(first,temp , kk);
+
 		TreeBalance(temp+1, last,kk);
 	}
 }
+
+void Tree::TreeMirror() {
+	if (root == NULL) {
+		cout << "No item in tree, no mirroring is performed \n";
+	}
+	else {
+		TreeMirrorI(root);
+	}
+}
+
+void Tree::TreeMirrorI(Node *tnode) {
+	if (tnode == NULL) {
+		return;
+	}
+	else {
+		Node * temp;	
+		temp = tnode->left_ptr;
+		tnode->left_ptr = tnode->right_ptr;
+		tnode->right_ptr = temp;
+		TreeMirrorI(tnode->left_ptr);
+		TreeMirrorI(tnode->right_ptr);
+	}
+}
+	
 	
 	
