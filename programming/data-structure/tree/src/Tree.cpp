@@ -258,5 +258,47 @@ void Tree::TreeMirrorI(Node *tnode) {
 	}
 }
 	
-	
-	
+void Tree::addNodeToMaxHeapTree(int data) {
+	Node *temp = new Node(data);
+
+	if (temp == NULL ) { cout << "system is out of memory, can not add any more node \n";
+		exit(-1);
+	}
+
+	if (root == NULL ) {
+		root = temp;
+		return;
+	}
+
+	addNodeToLeaf(temp,root);
+	return;
+}
+
+bool Tree::addNodeToLeaf(Node * temp, Node * leaf) {
+		if ( leaf->left_ptr == NULL )  { 
+			leaf->left_ptr = temp;
+			leaf->left_ptr->parent = leaf; 
+			//swap(leaf->left_ptr);
+			return true;
+		}
+		else if ( leaf->right_ptr == NULL )  { 
+			leaf->right_ptr = temp;
+			leaf->right_ptr->parent = leaf;
+			//swap(leaf->right_ptr);
+			return true;
+		} 
+		else {
+			addNodeToLeaf (temp, leaf->left_ptr);
+			addNodeToLeaf(temp, leaf->right_ptr);
+		}	
+}
+
+void Tree::swap(Node *_ptr) {
+	if (_ptr->data > _ptr->parent->data) {
+		int temp = _ptr->data;
+		_ptr->data = _ptr->parent->data;
+		_ptr->parent->data = temp; 
+		swap (_ptr->parent);
+	}
+	return;
+}

@@ -37,9 +37,14 @@ class Tree {
 		void PerformTreeBalance(void);
 		void TreeBalance(int, int, Node * kk[]);
 		void TreeMirror();
+		void addNodeToMaxHeapTree(int data);
+		void addNodeToLeaf(Node *,  Node *);
+		void swap(Node *);
+		void addWNode(Node *);
 
 	private:
 		Node *root;
+		Node *whead;
 		void preOrderTraversal(Node * _ptr);
 		void TreeMirrorI(Node *);
 		int ITreeSize(Node *);

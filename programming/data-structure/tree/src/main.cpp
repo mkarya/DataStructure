@@ -19,15 +19,15 @@ int main ()
 	cout << ll.data << "\n";
 
 	for(unsigned short int counter=0;counter<10;counter++) {
-		btree->AddNodeToTree(int_tree_item[counter]);
+		btree->addNodeToMaxHeapTree(int_tree_item[counter]);
 	}
 
 	for(unsigned short int counter=0;counter<10;counter++) {
-		btree->AddNodeToTree(int_tree_item1[counter]);
+		btree->addNodeToMaxHeapTree(int_tree_item1[counter]);
 	}
 
 	
-	check_find_function(btree);
+	//check_find_function(btree);
 	btree->RightTraverse();
 	cout << btree->treeSize() << "\n";
 	cout << "Tree Hight :" << btree->TreeHight(btree->getRoot()) << "\n";
@@ -38,8 +38,8 @@ int main ()
 
 	//btree->WreadthFirst();
 
-	cout << "Tree balace factor :" << btree->IsTreeBalanced(btree->getRoot()) << "\n";
-	btree->PerformTreeBalance();
+	//cout << "Tree balace factor :" << btree->IsTreeBalanced(btree->getRoot()) << "\n";
+	//btree->PerformTreeBalance();
 	//cout << "Tree balace factor :" << btree->IsTreeBalanced(btree->getRoot()) << "\n";
 	return 0;
 }
